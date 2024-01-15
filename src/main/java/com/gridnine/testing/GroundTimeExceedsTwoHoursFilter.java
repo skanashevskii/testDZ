@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class GroundTimeExceedsTwoHoursFilter implements Filter {
 
-    private Duration minGroundTime;
+    private final Duration minGroundTime;
 
     public GroundTimeExceedsTwoHoursFilter(Duration minGroundTime) {
         this.minGroundTime = minGroundTime;

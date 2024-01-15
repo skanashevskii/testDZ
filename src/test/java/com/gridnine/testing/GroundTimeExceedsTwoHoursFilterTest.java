@@ -31,7 +31,7 @@ public class GroundTimeExceedsTwoHoursFilterTest {
         List<Flight> filteredFlights = groundTimeExceedsTwoHoursFilter.filter(new ArrayList<>(flights));
         System.out.println("Flight after filtr:");
         filteredFlights.forEach(System.out::println);
-        assertEquals(0,filteredFlights.size(), "Filter must remove flights with exceeding ground time");
+        assertEquals(1,filteredFlights.size(), "Filter must remove flights with exceeding ground time");
     }
 
     @Test
@@ -53,9 +53,9 @@ public class GroundTimeExceedsTwoHoursFilterTest {
         String departureCity = "Paris";
         String arrivalCity = "London";
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime departure1 = now.minusHours(4);
-        LocalDateTime arrival1 = now.minusHours(2);
-        LocalDateTime departure2 = now.plusMinutes(3);
+        LocalDateTime departure1 = now.minusHours(3);
+        LocalDateTime arrival1 = now.minusHours(1);
+        LocalDateTime departure2 = now.plusMinutes(1);
 
         LocalDateTime arrival2 = now.plusHours(3);
         Segment segment1 = new Segment(departureCity, arrivalCity, departure1, arrival1);
@@ -72,8 +72,8 @@ public class GroundTimeExceedsTwoHoursFilterTest {
         String arrivalCity = "London";
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime departure1 = now.minusHours(3);
-        LocalDateTime arrival1 = now.minusHours(1);
-        LocalDateTime departure2 = now.minusHours(2);
+        LocalDateTime arrival1 = now.minusHours(2).minusMinutes(32);
+        LocalDateTime departure2 = now.minusMinutes(30);
 
 
         Segment segment1 = new Segment(departureCity, arrivalCity, departure1, arrival1);
