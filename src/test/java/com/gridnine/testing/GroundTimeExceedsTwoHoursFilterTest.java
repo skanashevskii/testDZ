@@ -3,13 +3,14 @@ package com.gridnine.testing;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+
 
 public class GroundTimeExceedsTwoHoursFilterTest {
 
@@ -17,7 +18,8 @@ public class GroundTimeExceedsTwoHoursFilterTest {
 
     @BeforeEach
     void setUp() {
-        groundTimeExceedsTwoHoursFilter = new GroundTimeExceedsTwoHoursFilter();
+        groundTimeExceedsTwoHoursFilter = new GroundTimeExceedsTwoHoursFilter(Duration.ofHours(2).plusMinutes(1));
+
     }
     @Test
     void testFilterWithExceedingGroundTime() {
@@ -48,13 +50,16 @@ public class GroundTimeExceedsTwoHoursFilterTest {
     }
 
     private List<Flight> createSatisfyingFlights() {
+        String departureCity = "Paris";
+        String arrivalCity = "London";
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime departure1 = now.minusHours(3);
+        LocalDateTime departure1 = now.minusHours(4);
         LocalDateTime arrival1 = now.minusHours(2);
-        LocalDateTime departure2 = now.plusMinutes(10);
+        LocalDateTime departure2 = now.plusMinutes(3);
+
         LocalDateTime arrival2 = now.plusHours(3);
-        Segment segment1 = new Segment(departure1, arrival1);
-        Segment segment2 = new Segment(departure2, arrival2);
+        Segment segment1 = new Segment(departureCity, arrivalCity, departure1, arrival1);
+        Segment segment2 = new Segment(departureCity, arrivalCity, departure2, arrival2);
 
         List<Segment> segments =List.of(segment1,segment2);
 
@@ -63,14 +68,16 @@ public class GroundTimeExceedsTwoHoursFilterTest {
     }
 
     private List<Flight> createFlightsWithExceedingGroundTime() {
+        String departureCity = "Paris";
+        String arrivalCity = "London";
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime departure1 = now.minusHours(3);
         LocalDateTime arrival1 = now.minusHours(2);
         LocalDateTime departure2 = now.minusHours(1);
 
 
-        Segment segment1 = new Segment(departure1, arrival1);
-        Segment segment2 = new Segment(departure2, now);
+        Segment segment1 = new Segment(departureCity, arrivalCity, departure1, arrival1);
+        Segment segment2 = new Segment(departureCity, arrivalCity, departure2, now);
 
         List<Segment> segments = List.of(segment1,segment2);
 

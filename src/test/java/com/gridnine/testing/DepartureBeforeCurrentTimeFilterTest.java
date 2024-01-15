@@ -69,8 +69,8 @@ public class DepartureBeforeCurrentTimeFilterTest {
 
     private List<Flight> createInvalidFlights() {
         List<Flight> flights = new ArrayList<>();
-        Flight invalidFlight1 = createFlight(LocalDateTime.now().minusHours(1),LocalDateTime.now());
-        Flight invalidFlight2 = createFlight(LocalDateTime.now().minusHours(2),LocalDateTime.now().minusHours(1));
+        Flight invalidFlight1 = createFlight("Paris","Berlin",LocalDateTime.now().minusHours(1),LocalDateTime.now());
+        Flight invalidFlight2 = createFlight("Berlin","London",LocalDateTime.now().minusHours(2),LocalDateTime.now().minusHours(1));
         flights.add(invalidFlight1);
         flights.add(invalidFlight2);
         return flights;
@@ -78,15 +78,15 @@ public class DepartureBeforeCurrentTimeFilterTest {
 
     private List<Flight> createValidFlights() {
         List<Flight> flights = new ArrayList<>();
-        Flight validFlight1 = createFlight(LocalDateTime.now().plusHours(1),LocalDateTime.now().plusHours(2));
-        Flight validFlight2 = createFlight(LocalDateTime.now().plusHours(2),LocalDateTime.now().plusHours(3));
+        Flight validFlight1 = createFlight("Paris","Berlin",LocalDateTime.now().plusHours(1),LocalDateTime.now().plusHours(2));
+        Flight validFlight2 = createFlight("Berlin","London",LocalDateTime.now().plusHours(2),LocalDateTime.now().plusHours(3));
         flights.add(validFlight1);
         flights.add(validFlight2);
         return flights;
     }
 
-    private Flight createFlight(LocalDateTime departure,LocalDateTime arrival){
-        Segment segment = new Segment(departure, arrival);
+    private Flight createFlight(String departureCity, String arrivalCity,LocalDateTime departure,LocalDateTime arrival){
+        Segment segment = new Segment(departureCity, arrivalCity, departure, arrival);
         List<Segment> segments = new ArrayList<>();
         segments.add(segment);
           return new Flight(segments);

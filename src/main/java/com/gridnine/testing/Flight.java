@@ -14,11 +14,18 @@ public class Flight {
         return segments;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "[" + segments.stream()
                 .map(Segment::toString)
                 .collect(Collectors.joining("], [", "","]"))+ "]";
+    }*/
+    @Override
+    public String toString() {
+        return "[" + segments.stream()
+                .map(Segment::toString)
+                .reduce((s1, s2) -> s1 + " | " + s2)
+                .orElse("") + "]";
     }
 
     @Override
