@@ -38,10 +38,14 @@ public class GroundTimeExceedsTwoHoursFilter implements Filter {
             //получение даты отправления текущего сегмента
             LocalDateTime currentDeparture = segments.get(i).getDepartureDate();
             //расчет времени между сегментами
-            Duration groundTime = Duration.between(previousArrival, currentDeparture);
-            System.out.println("Ground time: "+groundTime.toHours()+" hours " + groundTime.toMinutesPart()+ " minutes");
-            //подсчет общего времени стоянки
-            totalGroundTime = totalGroundTime.plus(groundTime);
+            if (currentDeparture.isAfter(previousArrival)) {
+                Duration groundTime = Duration.between(previousArrival, currentDeparture);
+                System.out.println("Ground time: " + groundTime.toHours() + " hours " + groundTime.toMinutesPart() + " minutes");
+                //подсчет общего времени стоянки
+                totalGroundTime = totalGroundTime.plus(groundTime);
+            }else {
+                System.out.println("Invalid segment order: currentDeparture is before previousArrival");
+            }
 
         }
         return totalGroundTime;

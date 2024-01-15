@@ -72,8 +72,8 @@ public class GroundTimeExceedsTwoHoursFilterTest {
         String arrivalCity = "London";
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime departure1 = now.minusHours(3);
-        LocalDateTime arrival1 = now.minusHours(2);
-        LocalDateTime departure2 = now.minusHours(1);
+        LocalDateTime arrival1 = now.minusHours(1);
+        LocalDateTime departure2 = now.minusHours(2);
 
 
         Segment segment1 = new Segment(departureCity, arrivalCity, departure1, arrival1);
